@@ -173,14 +173,6 @@ head(access_cum_i)
 ```
 
 
-<!-- 
-::: {.callout-tip}
-## Active Vs Passive accessibility
-
-By default, most functions of `{accessibility}` calculate *active* accessibility, i.e. some weighted count of opportunities that can be reached when *departing* from a given location. By setting the parater `active = FALSE`, you can calculate the catchment area (aka passive accessibility) of a given location, i.e. the number of people that could *arrive*.....
-:::
- -->
-
 
 
 ### Gravity-based accessibility measures
