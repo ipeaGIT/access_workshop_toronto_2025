@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.42">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Flexible approach – A Crash Course on Urban Accessibility with R</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./3.3_equity_measures.html" rel="next">
+<link href="./3.1_quick_approach.html" rel="prev">
+<link href=".//images/favicon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b53751a350365c71b6c909e95f209ed1.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-b343bb23504f009ddf7b24643a6af19a.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-93979c3dcdd8127e23eebb5e274d8c39.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta name="citation_title" content="[5]{.chapter-number}&nbsp; [Flexible approach]{.chapter-title}">
+<meta name="citation_fulltext_html_url" content="https://ipeagit.github.io/access_workshop_toronto_2025/3.2_flexible_approach.html">
+<meta name="citation_language" content="en">
+<meta name="citation_reference" content="citation_title=Accessibility evaluation of land-use and transport strategies: Review and research directions;,citation_author=Karst Geurs;,citation_author=Bert Wee;,citation_publication_date=2004-06;,citation_cover_date=2004-06;,citation_year=2004;,citation_issue=2;,citation_doi=10.1016/j.jtrangeo.2003.10.005;,citation_issn=09666923;,citation_volume=12;,citation_language=en-US;,citation_journal_title=Journal of Transport Geography;">
+<meta name="citation_reference" content="citation_title=Calculating place-based transit accessibility: Methods, tools and algorithmic dependence;,citation_author=Christopher Higgins;,citation_author=Matthew Palm;,citation_author=Amber DeJohn;,citation_author=Luna Xi;,citation_author=James Vaughan;,citation_author=Steven Farber;,citation_author=Michael Widener;,citation_author=Eric Miller;,citation_publication_date=2022-02;,citation_cover_date=2022-02;,citation_year=2022;,citation_issue=1;,citation_doi=10.5198/jtlu.2022.2012;,citation_issn=1938-7849;,citation_volume=15;,citation_journal_title=Journal of Transport and Land Use;">
+<meta name="citation_reference" content="citation_title=From mobility to accessibility: Transforming urban transportation and land-use planning;,citation_author=Jonathan Levine;,citation_author=Joe Grengs;,citation_author=Louis A. Merlin;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;">
+<meta name="citation_reference" content="citation_title=Towards a general theory of access;,citation_author=David M. Levinson;,citation_author=Hao Wu;,citation_publication_date=2020-06;,citation_cover_date=2020-06;,citation_year=2020;,citation_issue=1;,citation_doi=10.5198/jtlu.2020.1660;,citation_issn=1938-7849;,citation_volume=13;,citation_journal_title=Journal of Transport and Land Use;">
+<meta name="citation_reference" content="citation_title=Transport access manual: A guide for measuring connection between people and places;,citation_author=David Levinson;,citation_author=David King;,citation_publication_date=2020;,citation_cover_date=2020;,citation_year=2020;,citation_fulltext_html_url=https://ses.library.usyd.edu.au/handle/2123/23733;">
+<meta name="citation_reference" content="citation_title=A method to evaluate equitable accessibility: Combining ethical theories and accessibility-based approaches;,citation_author=Karen Lucas;,citation_author=Bert Wee;,citation_author=Kees Maat;,citation_publication_date=2016-05;,citation_cover_date=2016-05;,citation_year=2016;,citation_issue=3;,citation_doi=10.1007/s11116-015-9585-2;,citation_issn=1572-9435;,citation_volume=43;,citation_journal_title=Transportation;">
+<meta name="citation_reference" content="citation_title=Transport poverty and its adverse social consequences;,citation_author=Karen Lucas;,citation_author=Giulio Mattioli;,citation_author=Ersilia Verlinghieri;,citation_author=Alvaro Guzman;,citation_publication_date=2016-12;,citation_cover_date=2016-12;,citation_year=2016;,citation_issue=6;,citation_doi=10.1680/jtran.15.00073;,citation_issn=0965-092X, 1751-7710;,citation_volume=169;,citation_journal_title=Proceedings of the Institution of Civil Engineers - Transport;">
+<meta name="citation_reference" content="citation_title=Accessibility: Measurement and application in transportation planning;,citation_author=Eric J. Miller;,citation_publication_date=2018-09;,citation_cover_date=2018-09;,citation_year=2018;,citation_issue=5;,citation_doi=10.1080/01441647.2018.1492778;,citation_issn=0144-1647;,citation_volume=38;,citation_journal_title=Transport Reviews;,citation_publisher=Routledge;">
+<meta name="citation_reference" content="citation_title=Measuring accessibility: Positive and normative implementations of various accessibility indicators;,citation_author=Antonio Páez;,citation_author=Darren M. Scott;,citation_author=Catherine Morency;,citation_publication_date=2012-11;,citation_cover_date=2012-11;,citation_year=2012;,citation_doi=10.1016/j.jtrangeo.2012.03.016;,citation_issn=09666923;,citation_volume=25;,citation_language=en-US;,citation_journal_title=Journal of Transport Geography;">
+<meta name="citation_reference" content="citation_title=Accessibility instruments for planning practice: A review of European experiences;,citation_author=Enrica Papa;,citation_author=Cecilia Silva;,citation_author=Marco Te Brömmelstroet;,citation_author=Angela Hull;,citation_publication_date=2015-06;,citation_cover_date=2015-06;,citation_year=2015;,citation_doi=10.5198/jtlu.2015.585;,citation_issn=1938-7849;,citation_journal_title=Journal of Transport and Land Use;">
+<meta name="citation_reference" content="citation_title=Distributive justice and equity in transportation;,citation_author=Rafael H. M. Pereira;,citation_author=Tim Schwanen;,citation_author=David Banister;,citation_publication_date=2017;,citation_cover_date=2017;,citation_year=2017;,citation_issue=2;,citation_doi=10.1080/01441647.2016.1257660;,citation_issn=0144-1647, 1464-5327;,citation_volume=37;,citation_journal_title=Transport Reviews;">
+<meta name="citation_reference" content="citation_title=R5r: Rapid Realistic Routing on Multimodal Transport Networks with R&amp;amp;amp;lt;sup&amp;gt;5&amp;lt;/sup&amp;gt; in R;,citation_author=Rafael H. M. Pereira;,citation_author=Marcus Saraiva;,citation_author=Daniel Herszenhut;,citation_author=Carlos Kaue Vieira Braga;,citation_author=Matthew Wigginton Conway;,citation_publication_date=2021-03;,citation_cover_date=2021-03;,citation_year=2021;,citation_doi=10.32866/001c.21262;,citation_journal_title=Transport Findings;,citation_publisher=Network Design Lab;">
+<meta name="citation_reference" content="citation_title=Transportation Equity;,citation_author=Rafael H. M. Pereira;,citation_author=Alex Karner;,citation_editor=Roger Vickerman;,citation_publication_date=2021-01;,citation_cover_date=2021-01;,citation_year=2021;,citation_doi=10.1016/B978-0-08-102671-7.10053-3;,citation_isbn=978-0-08-102672-4;,citation_language=en-US;,citation_inbook_title=International Encyclopedia of Transportation;">
+<meta name="citation_reference" content="citation_title=Accessibility: Transport Accessibility Measures;,citation_author=Rafael H. M. Pereira;,citation_author=Daniel Herszenhut;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;">
+<meta name="citation_reference" content="citation_title=Aopdata: Data from the Access to Opportunities Project;,citation_author=Rafael H. M. Pereira;,citation_author=Daniel Herszenhut;,citation_author=Carlos K. V. Braga;,citation_author=Diego B. Tomasiello;,citation_author=Marcus Saraiva;,citation_publication_date=2022;,citation_cover_date=2022;,citation_year=2022;">
+<meta name="citation_reference" content="citation_title=Accessibility instruments in planning practice: Bridging the implementation gap;,citation_author=Cecília Silva;,citation_author=Luca Bertolini;,citation_author=Marco Brömmelstroet;,citation_author=Dimitris Milakis;,citation_author=Enrica Papa;,citation_publication_date=2017-01;,citation_cover_date=2017-01;,citation_year=2017;,citation_doi=10.1016/j.tranpol.2016.09.006;,citation_issn=0967-070X;,citation_volume=53;,citation_journal_title=Transport Policy;">
+<meta name="citation_reference" content="citation_title=Transport Modes and Accessibility;,citation_author=Bert Wee;,citation_editor=Roger Vickerman;,citation_publication_date=2021-01;,citation_cover_date=2021-01;,citation_year=2021;,citation_doi=10.1016/B978-0-08-102671-7.10402-6;,citation_isbn=978-0-08-102672-4;,citation_inbook_title=International Encyclopedia of Transportation;">
+<meta name="citation_reference" content="citation_title=Accessibility and equity: A conceptual framework and research agenda;,citation_author=Bert Wee;,citation_publication_date=2022-10;,citation_cover_date=2022-10;,citation_year=2022;,citation_doi=10.1016/j.jtrangeo.2022.103421;,citation_issn=09666923;,citation_volume=104;,citation_journal_title=Journal of Transport Geography;">
+<meta name="citation_reference" content="citation_title=Advances and pitfalls in measuring transportation equity;,citation_author=Alex Karner;,citation_author=Rafael H. M. Pereira;,citation_author=Steven Farber;,citation_publication_date=2024-01;,citation_cover_date=2024-01;,citation_year=2024;,citation_doi=10.1007/s11116-023-10460-7;,citation_issn=1572-9435;,citation_language=en-US;,citation_journal_title=Transportation;">
+<meta name="citation_reference" content="citation_title=Future accessibility impacts of transport policy scenarios: Equity and sensitivity to travel time thresholds for bus rapid transit expansion in rio de janeiro;,citation_author=Rafael H. M. Pereira;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;,citation_fulltext_html_url=http://www.sciencedirect.com/science/article/pii/S0966692318302047;,citation_doi=https://doi.org/10.1016/j.jtrangeo.2018.12.005;,citation_issn=0966-6923;,citation_volume=74;,citation_journal_title=Journal of Transport Geography;">
+<meta name="citation_reference" content="citation_title=A time interval metric for cumulative opportunity accessibility;,citation_author=Diego Bogado Tomasiello;,citation_author=Daniel Herszenhut;,citation_author=João Lucas Albuquerque Oliveira;,citation_author=Carlos Kaue Vieira Braga;,citation_author=Rafael H. M. Pereira;,citation_publication_date=2023-08;,citation_cover_date=2023-08;,citation_year=2023;,citation_doi=10.1016/j.apgeog.2023.103007;,citation_issn=0143-6228;,citation_volume=157;,citation_journal_title=Applied Geography;">
+<meta name="citation_reference" content="citation_title=A Class of Decomposable Poverty Measures;,citation_author=James Foster;,citation_author=Joel Greer;,citation_author=Erik Thorbecke;,citation_publication_date=1984;,citation_cover_date=1984;,citation_year=1984;,citation_fulltext_html_url=https://www.jstor.org/stable/1913475;,citation_issue=3;,citation_doi=10.2307/1913475;,citation_issn=0012-9682;,citation_volume=52;,citation_journal_title=Econometrica;,citation_publisher=[Wiley, Econometric Society];">
+<meta name="citation_reference" content="citation_title=Measuring transport equity;,citation_author=Karen Lucas;,citation_author=Karel Martens;,citation_author=Floridea Di Ciommo;,citation_author=Ariane Dupont-Kieffer;,citation_publication_date=2019;,citation_cover_date=2019;,citation_year=2019;">
+<meta name="citation_reference" content="citation_title=Introduction to urban accessibility: A practical guide with r;,citation_author=Rafael H. M. Pereira;,citation_author=Daniel Herszenhut;,citation_publication_date=2023;,citation_cover_date=2023;,citation_year=2023;,citation_fulltext_html_url=https://ipeagit.github.io/intro_access_book/index.en.html;,citation_doi=10.38116/9786556350653;,citation_isbn=978-65-5635-065-3;">
+<meta name="citation_reference" content="citation_title=Evidence-Based Transit and Land Use Sketch Planning Using Interactive Accessibility Methods on Combined Schedule and Headway-Based Networks;,citation_author=Matthew Wigginton Conway;,citation_author=Andrew Byrd;,citation_author=Marco Linden;,citation_publication_date=2017-01;,citation_cover_date=2017-01;,citation_year=2017;,citation_issue=1;,citation_doi=10.3141/2653-06;,citation_issn=0361-1981, 2169-4052;,citation_volume=2653;,citation_journal_title=Transportation Research Record: Journal of the Transportation Research Board;">
+</head>
+
+<body class="nav-sidebar docked">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3.1_quick_approach.html">Calculating accessibility</a></li><li class="breadcrumb-item"><a href="./3.2_flexible_approach.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flexible approach</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Crash Course on Urban Accessibility with R</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/ipeaGIT/access_workshop_toronto_2025" title="Github" class="quarto-navigation-tool px-1" aria-label="Github"><i class="bi bi-github"></i></a>
+    <a href="https://x.com/UrbanDemog" title="twitter" class="quarto-navigation-tool px-1" aria-label="twitter"><i class="bi bi-twitter"></i></a>
+    <a href="https://www.linkedin.com/in/rafael-h-m-pereira/" title="linkedin" class="quarto-navigation-tool px-1" aria-label="linkedin"><i class="bi bi-linkedin"></i></a>
+    <a href="https://github.com/ipeaGIT/access_workshop_toronto_2025" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to the workshop</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Getting started</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2.1_installation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Installation</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./2.2_data_requirements.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Data requirements</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Calculating accessibility</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3.1_quick_approach.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quick approach</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3.2_flexible_approach.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flexible approach</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./3.3_equity_measures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Equity measures</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+  <ul>
+  <li><a href="#building-a-routable-transport-network" id="toc-building-a-routable-transport-network" class="nav-link active" data-scroll-target="#building-a-routable-transport-network"><span class="header-section-number">5.1</span> Building a routable transport network</a></li>
+  <li><a href="#computing-a-travel-time-matrix" id="toc-computing-a-travel-time-matrix" class="nav-link" data-scroll-target="#computing-a-travel-time-matrix"><span class="header-section-number">5.2</span> Computing a travel time matrix</a></li>
+  <li><a href="#calculating-accessibility" id="toc-calculating-accessibility" class="nav-link" data-scroll-target="#calculating-accessibility"><span class="header-section-number">5.3</span> Calculating accessibility</a>
+  <ul class="collapse">
+  <li><a href="#cumulative-accessibility-measure" id="toc-cumulative-accessibility-measure" class="nav-link" data-scroll-target="#cumulative-accessibility-measure"><span class="header-section-number">5.3.1</span> Cumulative accessibility measure</a></li>
+  <li><a href="#gravity-based-accessibility-measures" id="toc-gravity-based-accessibility-measures" class="nav-link" data-scroll-target="#gravity-based-accessibility-measures"><span class="header-section-number">5.3.2</span> Gravity-based accessibility measures</a></li>
+  </ul></li>
+  <li><a href="#accessibility-map" id="toc-accessibility-map" class="nav-link" data-scroll-target="#accessibility-map"><span class="header-section-number">5.4</span> Accessibility map</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<div class="quarto-about-solana column-body">
+  <div class="about-entity">
+    <div class="entity-contents">
+      <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./3.1_quick_approach.html">Calculating accessibility</a></li><li class="breadcrumb-item"><a href="./3.2_flexible_approach.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flexible approach</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Flexible approach</span></h1>
+</div>
+<div class="quarto-title-meta">
+  </div>
+</header> 
+      <div class="about-contents"><main class="content" id="quarto-document-content">
+
+<p>In the the previous section, we learned a ‘quick approach’ to calculate accessibility directly from within <code>{r5r}</code>. A shortcoming of this approach is that it is limited to only a few predefined accessibility metrics available in <code>{r5r}</code>. Oftentimes, we want to analyze other types of accessibility metrics and/or to have more control of the different steps of the analysis.</p>
+<p><strong>In this section, we’ll learn how to calculate travel time matrices and to use them to compute different types of accessibility metrics.</strong> This is a more ‘flexible’ approach that combines the capabilities of the <code>{r5r}</code> and the <code>{accessibility}</code> packages. We’ll use again the sample data for the city of Porto Alegre, Brazil, that comes with the <code>{r5r}</code> package.</p>
+<!-- package logos side by side  -->
+<div style="text-align: center">
+<table>
+<tbody><tr>
+<td>
+<img src="./images/r5r_logo.png" width="180">
+</td>
+<td>
+<img src="./images/accessibility_logo.png" width="180">
+</td>
+</tr>
+</tbody></table>
+</div>
+<p>This flexible approach to calculate accessibility only involves 3 steps:</p>
+<ol type="1">
+<li>Building a routable transport network</li>
+<li>Computing a travel time matrix</li>
+<li>Calculating accessibility</li>
+</ol>
+<p>Now let’s start loading the packages we need:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># allocating memory to java</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">java.parameters =</span> <span class="st">"-Xmx6G"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(r5r)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(accessibility)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(h3jsr)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="building-a-routable-transport-network" class="level2" data-number="5.1">
+<h2 data-number="5.1" data-anchor-id="building-a-routable-transport-network"><span class="header-section-number">5.1</span> Building a routable transport network</h2>
+<p>First, we build the multimodal transport network by passing the path of our data directory to the <code>r5r::setup_r5()</code> function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># path to data directory</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata/poa"</span>, <span class="at">package =</span> <span class="st">"r5r"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># build network</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>r5r_core <span class="ot">&lt;-</span> r5r<span class="sc">::</span><span class="fu">setup_r5</span>(data_path, </span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                          <span class="at">verbose =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="computing-a-travel-time-matrix" class="level2" data-number="5.2">
+<h2 data-number="5.2" data-anchor-id="computing-a-travel-time-matrix"><span class="header-section-number">5.2</span> Computing a travel time matrix</h2>
+<p>The second step is to calculate a travel time matrix with door-to-door travel time estimates from all origins to all destinations. To do this, we use the <code>r5r::travel_time_matrix()</code> function.</p>
+<p>As basic inputs, this function receives the routable network created above, origin and destination points as <code>data.frames</code> with columns <code>id</code>, <code>lon</code> and <code>lat</code>, the transportation mode and the departure time.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-3"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-3-1"><a href="#annotated-cell-3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read points data</span></span>
+<span id="annotated-cell-3-2"><a href="#annotated-cell-3-2" aria-hidden="true" tabindex="-1"></a>points <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="fu">file.path</span>(data_path, <span class="st">"poa_hexgrid.csv"</span>))</span>
+<span id="annotated-cell-3-3"><a href="#annotated-cell-3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-4"><a href="#annotated-cell-3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># routing inputs</span></span>
+<span id="annotated-cell-3-5"><a href="#annotated-cell-3-5" aria-hidden="true" tabindex="-1"></a>mode <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"walk"</span>, <span class="st">"transit"</span>)</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-3" data-target-annotation="1">1</button><span id="annotated-cell-3-6" class="code-annotation-target"><a href="#annotated-cell-3-6" aria-hidden="true" tabindex="-1"></a>max_trip_duration <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="annotated-cell-3-7"><a href="#annotated-cell-3-7" aria-hidden="true" tabindex="-1"></a>departure_datetime <span class="ot">&lt;-</span> <span class="fu">as.POSIXct</span>(<span class="st">"13-05-2019 14:00:00"</span>,</span>
+<span id="annotated-cell-3-8"><a href="#annotated-cell-3-8" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">format =</span> <span class="st">"%d-%m-%Y %H:%M:%S"</span>)</span>
+<span id="annotated-cell-3-9"><a href="#annotated-cell-3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="annotated-cell-3-10"><a href="#annotated-cell-3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate travel time matrix</span></span>
+<span id="annotated-cell-3-11"><a href="#annotated-cell-3-11" aria-hidden="true" tabindex="-1"></a>ttm <span class="ot">&lt;-</span> r5r<span class="sc">::</span><span class="fu">travel_time_matrix</span>(</span>
+<span id="annotated-cell-3-12"><a href="#annotated-cell-3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">r5r_core =</span> r5r_core,</span>
+<span id="annotated-cell-3-13"><a href="#annotated-cell-3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">origins =</span> points,</span>
+<span id="annotated-cell-3-14"><a href="#annotated-cell-3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">destinations =</span> points,</span>
+<span id="annotated-cell-3-15"><a href="#annotated-cell-3-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">mode =</span> mode,</span>
+<span id="annotated-cell-3-16"><a href="#annotated-cell-3-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">departure_datetime =</span> departure_datetime,</span>
+<span id="annotated-cell-3-17"><a href="#annotated-cell-3-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">max_trip_duration =</span> max_trip_duration,</span>
+<span id="annotated-cell-3-18"><a href="#annotated-cell-3-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">progress =</span> <span class="cn">TRUE</span></span>
+<span id="annotated-cell-3-19"><a href="#annotated-cell-3-19" aria-hidden="true" tabindex="-1"></a>  )</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-3" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-3" data-code-lines="6" data-code-annotation="1">In minutes</span>
+</dd>
+</dl>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Note that the <code>r5r::travel_time_matrix()</code> includes several additional parameters that allow you to specify some trip characteristics, such as maximum walking time, a departure time window, the maximum number of public transport legs allowed, etc. For more info, check the documentation of the function by calling <code>?r5r::travel_time_matrix</code> in your R Console or check the documentation on <a href="https://ipeagit.github.io/r5r/reference/travel_time_matrix.html">{r5r} website</a>.</p>
+</div>
+</div>
+<p>The output is a <code>data.frame</code>, which looks like this. It is a matrix in long format with the columns <code>from_id</code>, <code>to_id</code> and a third column indicating the travel time (in minutes) for each origin-destination pair.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(ttm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           from_id           to_id travel_time_p50
+            &lt;char&gt;          &lt;char&gt;           &lt;int&gt;
+1: 89a901291abffff 89a901291abffff               1
+2: 89a901291abffff 89a90129157ffff              25
+3: 89a901291abffff 89a9012956bffff              29
+4: 89a901291abffff 89a90128257ffff              29
+5: 89a901291abffff 89a90129ed3ffff              29
+6: 89a901291abffff 89a9012913bffff              19</code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Processing speed
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>travel_time_matrix()</code> function uses an extension of the RAPTOR routing algorithm <span class="citation" data-cites="conway2017evidencebased">(<a href="references.html#ref-conway2017evidencebased" role="doc-biblioref">Conway, Byrd, and van der Linden 2017</a>)</span>, making R5 extremely fast. Depending on the number of origin-destination pairs, <code>{r5r}</code> can calculate travel time matrices between 6 and 200 times faster than other multimodal routing engines <span class="citation" data-cites="higgins2022calculating">(<a href="references.html#ref-higgins2022calculating" role="doc-biblioref">Higgins et al. 2022</a>)</span>.</p>
+</div>
+</div>
+</section>
+<section id="calculating-accessibility" class="level2" data-number="5.3">
+<h2 data-number="5.3" data-anchor-id="calculating-accessibility"><span class="header-section-number">5.3</span> Calculating accessibility</h2>
+<p><img align="right" src="./images/accessibility_logo.png" alt="logo" width="140"></p>
+<p>Having computed a travel time matrix, we can combine it with land use data to calculate accessibility. For this, we will use the <code>{accessibility}</code> package, which provides some fast and convenient functions to calculate several accessibility measures.</p>
+<p>The package currently includes more than 7 different types of accessibility measures (see details in the package <a href="https://ipeagit.github.io/accessibility/reference/cost_to_closest.html">documentation website</a>).</p>
+<ul>
+<li><code>cost_to_closest()</code>: Minimum travel cost to closest N number of opportunities</li>
+<li><code>cumulative_cutoff()</code>: Cumulative access based on a travel cost <em>cutoff</em></li>
+<li><code>cumulative_interval()</code>: Cumulative access based on a travel time <em>interval</em></li>
+<li><code>gravity()</code>: Gravity-based accessibility measures</li>
+<li><code>floating_catchment_area()</code>: Floating catchment area accessibility</li>
+<li><code>spatial_availability()</code>: Spatial availability</li>
+<li><code>balancing_cost()</code>: Balancing cost accessibility measure</li>
+</ul>
+<p>As basic inputs, all functions of the package require a pre-calculated cost matrix (in our case, a travel time matrix) and some land use data with the number of opportunities (e.g.&nbsp;schools, jobs) in each cell of the study area. Both inputs must be organized in a <code>data.frame</code> format. We have just seen above the structure of the travel matrix. The land use <code>data.frame</code> must be organized like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="annotated-cell-5"><pre class="sourceCode r code-annotation-code code-with-copy code-annotated"><code class="sourceCode r"><span id="annotated-cell-5-1"><a href="#annotated-cell-5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># land use data</span></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-5" data-target-annotation="1">1</button><span id="annotated-cell-5-2" class="code-annotation-target"><a href="#annotated-cell-5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(points)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-annotation">
+<dl class="code-annotation-container-hidden code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-5" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-5" data-code-lines="2" data-code-annotation="1">The land use data must contain an <code>id</code> column, referring to the ids listed in the travel matrix, and the number of opportunities in each location.</span>
+</dd>
+</dl>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>               id       lon       lat population schools jobs healthcare
+1 89a901291abffff -51.15825 -30.05385          0       0 1214          0
+2 89a9012a3cfffff -51.21187 -30.10058        159       0    0          0
+3 89a901295b7ffff -51.16521 -30.07544       1008       0    3          1
+4 89a901284a3ffff -51.20535 -30.09005         92       0    0          0
+5 89a9012809bffff -51.19575 -30.07839        577       0    9          0
+6 89a901285cfffff -51.21108 -30.08124       1170       0  427          0</code></pre>
+</div>
+</div>
+<p>Now let’s calculate a few accessibility indicators.</p>
+<section id="cumulative-accessibility-measure" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" data-anchor-id="cumulative-accessibility-measure"><span class="header-section-number">5.3.1</span> Cumulative accessibility measure</h3>
+<section id="threshold-based-cumulative-accessibility" class="level4" data-number="5.3.1.1">
+<h4 data-number="5.3.1.1" data-anchor-id="threshold-based-cumulative-accessibility"><span class="header-section-number">5.3.1.1</span> Threshold-based cumulative accessibility</h4>
+<p>To calculate a traditional cumulative accessibility measure, we can use the <code>accessibility::cumulative_cutoff()</code> function. Along with the travel matrix and land use data sets, we only need to pass the name of the column with the travel time values, the name of the column with the count of opportunities, and a travel time cutoff.</p>
+<p>Here, we calculate the number of schools accessible in 20 minutes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># threshold-based cumulative accessibility</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>access_cum_t <span class="ot">&lt;-</span> accessibility<span class="sc">::</span><span class="fu">cumulative_cutoff</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_matrix =</span> ttm, </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">land_use_data =</span> points,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_cost =</span> <span class="st">'travel_time_p50'</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">opportunity =</span> <span class="st">'schools'</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">cutoff =</span> <span class="dv">20</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(access_cum_t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                id schools
+            &lt;char&gt;   &lt;int&gt;
+1: 89a9012124fffff       1
+2: 89a9012126bffff       3
+3: 89a9012127bffff       3
+4: 89a90128003ffff       8
+5: 89a90128007ffff       6
+6: 89a9012800bffff       9</code></pre>
+</div>
+</div>
+</section>
+<section id="interval-based-cumulative-accessibility" class="level4" data-number="5.3.1.2">
+<h4 data-number="5.3.1.2" data-anchor-id="interval-based-cumulative-accessibility"><span class="header-section-number">5.3.1.2</span> Interval-based cumulative accessibility</h4>
+<p>Previous studies have shown that the <em>ad-hoc</em> choice of a single travel time threshold can substantially influence the results of traditional cumulative accessibility measures, introducing bias into transport project evaluations and equity analyses <span class="citation" data-cites="pereira2019future">(<a href="references.html#ref-pereira2019future" role="doc-biblioref">Pereira 2019</a>)</span>. To overcome this issue, we have proposed a <em>time interval</em> cumulative accessibility measure <span class="citation" data-cites="tomasiello2023time">(<a href="references.html#ref-tomasiello2023time" role="doc-biblioref">Tomasiello et al. 2023</a>)</span>. This new metric estimates the average (or the median) number of opportunities that can be reached considering multiple minute-by-minute cutoffs within a given travel time interval.</p>
+<p>The main advantage of this metric is that it mitigates the impacts of arbitrary choices of trip duration on accessibility analysis while preserving the computation and communicability advantages of threshold-based cumulative measures.</p>
+<p>Here, we calculate the average number of schools that can be reached between 20 and 30 minutes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># interval-based cumulative accessibility</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>access_cum_i <span class="ot">&lt;-</span> accessibility<span class="sc">::</span><span class="fu">cumulative_interval</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_matrix =</span> ttm, </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">land_use_data =</span> points,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_cost =</span> <span class="st">'travel_time_p50'</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">opportunity =</span> <span class="st">'schools'</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">interval =</span> <span class="fu">c</span>(<span class="dv">15</span>,<span class="dv">25</span>),</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">summary_function =</span> mean</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(access_cum_i)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                id schools
+            &lt;char&gt;   &lt;int&gt;
+1: 89a9012124fffff       1
+2: 89a9012126bffff       4
+3: 89a9012127bffff       4
+4: 89a90128003ffff       7
+5: 89a90128007ffff       7
+6: 89a9012800bffff       9</code></pre>
+</div>
+</div>
+<!-- 
+::: {.callout-tip}
+## Active Vs Passive accessibility
+By default, most functions of `{accessibility}` calculate *active* accessibility, i.e. some weighted count of opportunities that can be reached when *departing* from a given location. By setting the parater `active = FALSE`, you can calculate the catchment area (aka passive accessibility) of a given location, i.e. the number of people that could *arrive*.....
+:::
+ -->
+</section>
+</section>
+<section id="gravity-based-accessibility-measures" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" data-anchor-id="gravity-based-accessibility-measures"><span class="header-section-number">5.3.2</span> Gravity-based accessibility measures</h3>
+<p>The package also includes <code>accessibility::gravity()</code> to calculate gravity-based accessibility metrics in a very flexible way.</p>
+<p>It includes a <code>decay_function</code> parameter that can receive any <em>function</em> to convert travel cost into an impedance factor used to weight opportunities. For convenience, the package currently includes the following functions:</p>
+<ul>
+<li><code>decay_binary()</code></li>
+<li><code>decay_exponential()</code></li>
+<li><code>decay_linear()</code></li>
+<li><code>decay_logistic()</code></li>
+<li><code>decay_power()</code></li>
+<li><code>decay_stepped()</code></li>
+</ul>
+<p>Let’s see a couple examples with logistic and negative exponential decay functions:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># logistic decay</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>access_lgst <span class="ot">&lt;-</span> <span class="fu">gravity</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_matrix =</span> ttm,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">land_use_data =</span> points,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">decay_function =</span> <span class="fu">decay_logistic</span>(<span class="at">cutoff =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">5</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">opportunity =</span> <span class="st">"schools"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_cost =</span> <span class="st">"travel_time_p50"</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># negative exponential decay</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>access_nexp <span class="ot">&lt;-</span> <span class="fu">gravity</span>(</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_matrix =</span> ttm,</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">land_use_data =</span> points,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">decay_function =</span> <span class="fu">decay_exponential</span>(<span class="at">decay_value =</span> <span class="fl">0.1</span>),</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">opportunity =</span> <span class="st">"schools"</span>,</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">travel_cost =</span> <span class="st">"travel_time_p50"</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here’s a quick visualization of the shape of the decay curves we’ve used.</p>
+<div class="cell" data-code-show="false">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>negative_exp <span class="ot">&lt;-</span> <span class="fu">decay_exponential</span>(<span class="at">decay_value =</span> <span class="fl">0.1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>logistic <span class="ot">&lt;-</span> <span class="fu">decay_logistic</span>(<span class="at">cutoff =</span> <span class="dv">15</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>travel_costs <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">30</span>, <span class="fl">0.1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">minutes =</span> travel_costs,</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">negative_exp =</span> <span class="fu">negative_exp</span>(travel_costs)[[<span class="st">"0.1"</span>]],</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">logistic =</span> <span class="fu">logistic</span>(travel_costs)[[<span class="st">"c15;sd5"</span>]]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># reshape data to long format</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> tidyr<span class="sc">::</span><span class="fu">pivot_longer</span>(</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>  weights,</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">'negative_exp'</span>,  <span class="st">'logistic'</span>),</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">"decay_function"</span>,</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">"weights"</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(weights) <span class="sc">+</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(minutes, weights, <span class="at">color =</span> decay_function),</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(. <span class="sc">~</span> decay_function, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2_flexible_approach_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="accessibility-map" class="level2" data-number="5.4">
+<h2 data-number="5.4" data-anchor-id="accessibility-map"><span class="header-section-number">5.4</span> Accessibility map</h2>
+<p>Now it is super simple to merge all of these accessibility estimates to our spatial grid to visualize these results on a map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rbind all accessibility results in a single data.frame</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>access_cum_t<span class="sc">$</span>metric <span class="ot">&lt;-</span> <span class="st">'cum_threshold'</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>access_cum_i<span class="sc">$</span>metric <span class="ot">&lt;-</span> <span class="st">'cum_interval'</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>access_lgst<span class="sc">$</span>metric <span class="ot">&lt;-</span> <span class="st">'grav_logistic'</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>access_nexp<span class="sc">$</span>metric <span class="ot">&lt;-</span> <span class="st">'grav_exponential'</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(access_cum_t,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>            access_cum_i,</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>            access_lgst,</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>            access_nexp</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># retrieve polygons of H3 spatial grid</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> h3jsr<span class="sc">::</span><span class="fu">cell_to_polygon</span>(</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  points<span class="sc">$</span>id, </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">simple =</span> <span class="cn">FALSE</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="co"># merge accessibility estimates</span></span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>access_sf <span class="ot">&lt;-</span> <span class="fu">left_join</span>(</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  grid, </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>  df, </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">'h3_address'</span><span class="ot">=</span><span class="st">'id'</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Plot map</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> access_sf, <span class="fu">aes</span>(<span class="at">fill =</span> schools), <span class="at">color=</span> <span class="cn">NA</span>) <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">option =</span> <span class="st">'B'</span>) <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Access to schools by public transport using different accessibility metrics"</span>, <span class="at">fill =</span> <span class="st">"Access</span><span class="sc">\n</span><span class="st">score"</span>) <span class="sc">+</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>metric) <span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="3.2_flexible_approach_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The <code>{r5r}</code> package has several advanced capabilities:</p>
+<ul>
+<li>Accounting for monetary costs</li>
+<li>Accounting for Level of Traffic Stress (LTS)</li>
+<li>Using a departure window period instead of an exact departure time</li>
+<li>Trip planning with detailed ouputs</li>
+<li>Calculating isochrones</li>
+<li>Generating larger-than-memory outputs</li>
+</ul>
+<p>See the <a href="https://ipeagit.github.io/r5r/index.html">package vignettes on the website fore more info</a>.</p>
+</div>
+</div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-conway2017evidencebased" class="csl-entry" role="listitem">
+Conway, Matthew Wigginton, Andrew Byrd, and Marco van der Linden. 2017. <span>“Evidence-<span>Based Transit</span> and <span>Land Use Sketch Planning Using Interactive Accessibility Methods</span> on <span>Combined Schedule</span> and <span>Headway-Based Networks</span>.”</span> <em>Transportation Research Record: Journal of the Transportation Research Board</em> 2653 (1): 45–53. <a href="https://doi.org/10.3141/2653-06">https://doi.org/10.3141/2653-06</a>.
+</div>
+<div id="ref-higgins2022calculating" class="csl-entry" role="listitem">
+Higgins, Christopher, Matthew Palm, Amber DeJohn, Luna Xi, James Vaughan, Steven Farber, Michael Widener, and Eric Miller. 2022. <span>“Calculating Place-Based Transit Accessibility: <span>Methods</span>, Tools and Algorithmic Dependence.”</span> <em>Journal of Transport and Land Use</em> 15 (1). <a href="https://doi.org/10.5198/jtlu.2022.2012">https://doi.org/10.5198/jtlu.2022.2012</a>.
+</div>
+<div id="ref-pereira2019future" class="csl-entry" role="listitem">
+Pereira, Rafael H. M. 2019. <span>“Future Accessibility Impacts of Transport Policy Scenarios: Equity and Sensitivity to Travel Time Thresholds for Bus Rapid Transit Expansion in Rio de Janeiro.”</span> <em>Journal of Transport Geography</em> 74: 321–32. https://doi.org/<a href="https://doi.org/10.1016/j.jtrangeo.2018.12.005">https://doi.org/10.1016/j.jtrangeo.2018.12.005</a>.
+</div>
+<div id="ref-tomasiello2023time" class="csl-entry" role="listitem">
+Tomasiello, Diego Bogado, Daniel Herszenhut, João Lucas Albuquerque Oliveira, Carlos Kaue Vieira Braga, and Rafael H. M. Pereira. 2023. <span>“A Time Interval Metric for Cumulative Opportunity Accessibility.”</span> <em>Applied Geography</em> 157 (August): 103007. <a href="https://doi.org/10.1016/j.apgeog.2023.103007">https://doi.org/10.1016/j.apgeog.2023.103007</a>.
+</div>
+</div>
+</section>
+</main></div>
+    </div>
+  </div>
+</div>
+ <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/ipeagit\.github\.io\/access_workshop_toronto_2025\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      const annoteTargets = window.document.querySelectorAll('.code-annotation-anchor');
+      for (let i=0; i<annoteTargets.length; i++) {
+        const annoteTarget = annoteTargets[i];
+        const targetCell = annoteTarget.getAttribute("data-target-cell");
+        const targetAnnotation = annoteTarget.getAttribute("data-target-annotation");
+        const contentFn = () => {
+          const content = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          if (content) {
+            const tipContent = content.cloneNode(true);
+            tipContent.classList.add("code-annotation-tip-content");
+            return tipContent.outerHTML;
+          }
+        }
+        const config = {
+          allowHTML: true,
+          content: contentFn,
+          onShow: (instance) => {
+            selectCodeLines(instance.reference);
+            instance.reference.classList.add('code-annotation-active');
+            window.tippy.hideAll();
+          },
+          onHide: (instance) => {
+            unselectCodeLines();
+            instance.reference.classList.remove('code-annotation-active');
+          },
+          maxWidth: 300,
+          delay: [50, 0],
+          duration: [200, 0],
+          offset: [5, 10],
+          arrow: true,
+          appendTo: function(el) {
+            return el.parentElement.parentElement.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'quarto',
+          placement: 'right',
+          popperOptions: {
+            modifiers: [
+            {
+              name: 'flip',
+              options: {
+                flipVariations: false, // true by default
+                allowedAutoPlacements: ['right'],
+                fallbackPlacements: ['right', 'top', 'top-start', 'top-end', 'bottom', 'bottom-start', 'bottom-end', 'left'],
+              },
+            },
+            {
+              name: 'preventOverflow',
+              options: {
+                mainAxis: false,
+                altAxis: false
+              }
+            }
+            ]        
+          }      
+        };
+        window.tippy(annoteTarget, config); 
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./3.1_quick_approach.html" class="pagination-link" aria-label="Quick approach">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quick approach</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./3.3_equity_measures.html" class="pagination-link" aria-label="Equity measures">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Equity measures</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2025, Rafael H. M. Pereira</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link active" href="https://github.com/ipeaGIT/access_workshop_toronto_2025" aria-current="page">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

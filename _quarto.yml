@@ -1,0 +1,86 @@
+project:
+  type: book
+  output-dir: docs
+
+about:
+  template: solana
+  # links:
+  #   - icon: twitter
+  #     text: twitter
+  #     href: https://x.com/UrbanDemog
+  #   - icon: github
+  #     text: Github
+  #     href: https://github.com/ipeaGIT/access_workshop_toronto_2025
+
+execute:
+  freeze: auto
+
+lang: en
+book:
+  title: "A Crash Course on Urban Accessibility with R"
+  language: pt
+  author: 
+  - name: "Rafael H. M. Pereira"
+    email: rafael.pereira@ipea.gov.br
+    url: https://www.urbandemographics.org
+    orcid: 0000-0003-2125-7465
+    affiliation: "Institute for Applied Economic Research (Ipea)"
+  chapters:
+    - index.qmd
+    - part: "Getting started"
+      chapters:
+        - 2.1_installation.qmd
+        - 2.2_data_requirements.qmd
+    - part: "Calculating accessibility"
+      chapters:
+        - 3.1_quick_approach.qmd
+        - 3.2_flexible_approach.qmd
+        - 3.3_equity_measures.qmd
+    - references.qmd
+
+
+  site-url: https://ipeagit.github.io/access_workshop_toronto_2025/
+  repo-url: https://github.com/ipeaGIT/access_workshop_toronto_2025
+  favicon: /images/favicon.png
+  sidebar:
+    style: "docked"
+    search: true
+    tools: 
+      - icon: github
+        text: Github
+        href: https://github.com/ipeaGIT/access_workshop_toronto_2025
+      - icon: twitter
+        text: twitter
+        href: https://x.com/UrbanDemog
+      - icon: linkedin
+        text: linkedin
+        href: https://www.linkedin.com/in/rafael-h-m-pereira/
+  page-navigation: true
+  page-footer: 
+    border: false
+    left: "Copyright 2025, Rafael H. M. Pereira" 
+    right: 
+      - icon: github
+        href: https://github.com/ipeaGIT/access_workshop_toronto_2025
+  
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: slate
+    css: styles.css
+    toc: true
+
+bibliography: references.bib
+
+editor: source
+
+editor_options:
+  markdown:
+    wrap: 72
+    canonical: true
+
+google-scholar: true
+code-link: true
+

@@ -1,0 +1,58 @@
+# Intro to the workshop
+
+This website provides the supporting material for the workshop **"A crash course on urban accessibility with R"**. The workshop is conducted at the *Department of Geography and Planning* at the University of Toronto in April 2025, and is supported by the [John Bousfield Distinguished Visitor in Planning](https://www.geography.utoronto.ca/graduate-planning/community/bousfield-distinguished-visitorship-planning) program.
+
+![](images/logo_uni_toronto.png){width=230 fig-align="center"}
+
+## Workshop Summary:
+
+Routing and accessibility analyses are increasingly used in urban and transport research and planning. In this workshop, you will learn how to estimate travel time matrices and perform accessibility analyzes in multimodal transport networks using the [{r5r}](https://ipeagit.github.io/r5r/) and [{accessibility}](https://ipeagit.github.io/accessibility/) packages in the `R` programming language.
+
+The workshop will also illustrate how to calculate different measures of *inequality* of access to opportunities and accessibility *poverty*, which are crucial to assess the accessibility impacts of transportation projects from a transportation equity perspective. The course is based on the book [“Introduction to urban accessibility: a practical guide with R”](https://ipeagit.github.io/intro_access_book/) [@pereira2023introduction].
+
+<!-- package logos side by side  -->
+<div style="text-align: center">
+
+<table><tr><td><img src='/images/r5r_logo.png' width="180"></td><td><img src='/images/accessibility_logo.png' width="180"></td></tr></table>
+
+</div>
+
+
+::: {.callout-note appearance="simple"}
+`{r5r}` is an R package for rapid realistic routing on multimodal transport networks (walk, bike, public transport and car). It provides a simple and friendly interface to [R5, the Rapid Realistic Routing on Real-world and Reimagined networks](https://github.com/conveyal/r5), the routing engine developed independently by [Conveyal](https://conveyal.com/). Kudos to Conveyal for their amazing work.
+:::
+
+
+Here are a few introductory slides explaining what we cover and what we *do not* cover in this workshop:
+
+<p><embed src="slides/1_intro.pdf" style="width:100.0%;height:100vh;" /></p>
+
+::: {.callout-important appearance="default"}
+This workshop assumes the attendee has a basic knowledge of the R programming language. If you want to familiarize yourself with R, we recommend the books below:
+
+- [R for Data Science](https://r4ds.had.co.nz/)
+- [Geocomputation with R](https://geocompr.robinlovelace.net/)
+- [Data Science in R](https://livro.curso-r.com/) (in Portuguese)
+:::
+
+## Recommended reading:
+
+Extra reading material relevant (but not required) for the workshop.
+
+- Online book [“Introduction to urban accessibility a practical guide with R”](https://ipeagit.github.io/intro_access_book/) [@pereira2023introduction] - Chapters 3 and 6.
+- The `{accessibility}` package  [website and documentation](https://ipeagit.github.io/accessibility/ ).
+- The `{r5r}` package [website and documentation](https://ipeagit.github.io/r5r/).
+- Paper of the `{r5r}` package, by @pereira2021r5r.
+- Paper on transportation equity measures, by @karner2024advances.
+- Transport Access Manual, by @levinson2020transport.
+
+## About the instructor:
+
+**Rafael H. M. Pereira** <br> *Head of Data Science* <br> Institute for Applied Economic Research (Ipea), Brazil <br> [Website](https://www.urbandemographics.org/about/) | [Google Scholar](https://scholar.google.com.br/citations?user=dbRivsEAAAAJ&hl)
+| [BlueSkye](https://bsky.app/profile/urbandemog.bsky.social) | [Linkedin](https://www.linkedin.com/in/rafael-h-m-pereira/) | 
+
+
+**Short bio of the instructor:**
+
+Rafael Pereira (Rafa for short) is a senior researcher (tenured) working in the fields of urban analytics, spatial data science and transport studies at the Institute for Applied Economic Research (Ipea - Brazil), where he leads the Data Science team and the Access to Opportunities Lab (AOP-Lab). He is also a visiting professor (Bousfield Distinguished Visitor in Planning) at the Department of Geography and Planning at the University of Toronto (2024-2025). His research looks broadly at how urban policies and technologies shape the spatial organization of cities, human mobility as well as their impacts on social and health inequalities. Some of his key contributions to the fields of urban analytics and planning involve the development of new methods and open-source computational tools to the study of urban systems and transportation networks. These contributions emerge from substantive interests around social justice and sustainability issues in urban development, with particular focus on transportation equity and inequalities in access to opportunities, and the environmental impacts of built environments and mobility patterns. With a background in Sociology and Demography, Dr. Pereira obtained his PhD in Geography from the Transport Studies Unit at Oxford University.
+

@@ -1,0 +1,261 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "A Crash Course on Urban Accessibility with R",
+    "section": "",
+    "text": "1 Intro to the workshop\nThis website provides the supporting material for the workshop “A crash course on urban accessibility with R”. The workshop is conducted at the Department of Geography and Planning at the University of Toronto in April 2025, and is supported by the John Bousfield Distinguished Visitor in Planning program.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Intro to the workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#workshop-summary",
+    "href": "index.html#workshop-summary",
+    "title": "A Crash Course on Urban Accessibility with R",
+    "section": "1.1 Workshop Summary:",
+    "text": "1.1 Workshop Summary:\nRouting and accessibility analyses are increasingly used in urban and transport research and planning. In this workshop, you will learn how to estimate travel time matrices and perform accessibility analyzes in multimodal transport networks using the {r5r} and {accessibility} packages in the R programming language.\nThe workshop will also illustrate how to calculate different measures of inequality of access to opportunities and accessibility poverty, which are crucial to assess the accessibility impacts of transportation projects from a transportation equity perspective. The course is based on the book “Introduction to urban accessibility: a practical guide with R” (Pereira and Herszenhut 2023).\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n{r5r} is an R package for rapid realistic routing on multimodal transport networks (walk, bike, public transport and car). It provides a simple and friendly interface to R5, the Rapid Realistic Routing on Real-world and Reimagined networks, the routing engine developed independently by Conveyal. Kudos to Conveyal for their amazing work.\n\n\n\nHere are a few introductory slides explaining what we cover and what we do not cover in this workshop:\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nThis workshop assumes the attendee has a basic knowledge of the R programming language. If you want to familiarize yourself with R, we recommend the books below:\n\nR for Data Science\nGeocomputation with R\nData Science in R (in Portuguese)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Intro to the workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#recommended-reading",
+    "href": "index.html#recommended-reading",
+    "title": "A Crash Course on Urban Accessibility with R",
+    "section": "1.2 Recommended reading:",
+    "text": "1.2 Recommended reading:\nExtra reading material relevant (but not required) for the workshop.\n\nOnline book “Introduction to urban accessibility a practical guide with R” (Pereira and Herszenhut 2023) - Chapters 3 and 6.\nThe {accessibility} package website and documentation.\nThe {r5r} package website and documentation.\nPaper of the {r5r} package, by Pereira et al. (2021).\nPaper on transportation equity measures, by Karner, Pereira, and Farber (2024).\nTransport Access Manual, by Levinson and King (2020).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Intro to the workshop</span>"
+    ]
+  },
+  {
+    "objectID": "index.html#about-the-instructor",
+    "href": "index.html#about-the-instructor",
+    "title": "A Crash Course on Urban Accessibility with R",
+    "section": "1.3 About the instructor:",
+    "text": "1.3 About the instructor:\nRafael H. M. Pereira  Head of Data Science  Institute for Applied Economic Research (Ipea), Brazil  Website | Google Scholar | BlueSkye | Linkedin |\nShort bio of the instructor:\nRafael Pereira (Rafa for short) is a senior researcher (tenured) working in the fields of urban analytics, spatial data science and transport studies at the Institute for Applied Economic Research (Ipea - Brazil), where he leads the Data Science team and the Access to Opportunities Lab (AOP-Lab). He is also a visiting professor (Bousfield Distinguished Visitor in Planning) at the Department of Geography and Planning at the University of Toronto (2024-2025). His research looks broadly at how urban policies and technologies shape the spatial organization of cities, human mobility as well as their impacts on social and health inequalities. Some of his key contributions to the fields of urban analytics and planning involve the development of new methods and open-source computational tools to the study of urban systems and transportation networks. These contributions emerge from substantive interests around social justice and sustainability issues in urban development, with particular focus on transportation equity and inequalities in access to opportunities, and the environmental impacts of built environments and mobility patterns. With a background in Sociology and Demography, Dr. Pereira obtained his PhD in Geography from the Transport Studies Unit at Oxford University.\n\n\n\n\nKarner, Alex, Rafael H. M. Pereira, and Steven Farber. 2024. “Advances and Pitfalls in Measuring Transportation Equity.” Transportation, January. https://doi.org/10.1007/s11116-023-10460-7.\n\n\nLevinson, David, and David King. 2020. Transport Access Manual: A Guide for Measuring Connection Between People and Places. Committee of the Transport Access Manual, University of Sydney. https://ses.library.usyd.edu.au/handle/2123/23733.\n\n\nPereira, Rafael H. M., and Daniel Herszenhut. 2023. Introduction to Urban Accessibility: A Practical Guide with r. 1st ed. Instituto de Pesquisa Econômica Aplicada (Ipea). https://doi.org/10.38116/9786556350653.\n\n\nPereira, Rafael H. M., Marcus Saraiva, Daniel Herszenhut, Carlos Kaue Vieira Braga, and Matthew Wigginton Conway. 2021. “R5r: Rapid Realistic Routing on Multimodal Transport Networks with R5 in R.” Transport Findings, March, 21262. https://doi.org/10.32866/001c.21262.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Intro to the workshop</span>"
+    ]
+  },
+  {
+    "objectID": "2.1_installation.html",
+    "href": "2.1_installation.html",
+    "title": "2  Installation",
+    "section": "",
+    "text": "2.1 Installing R and RStudio\nWe assume you already have R and RStudio installed on your machine. In case you don’t, follow these simple instructions here.",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Installation</span>"
+    ]
+  },
+  {
+    "objectID": "2.1_installation.html#installing-r-packages",
+    "href": "2.1_installation.html#installing-r-packages",
+    "title": "2  Installation",
+    "section": "2.2 Installing R packages",
+    "text": "2.2 Installing R packages\nThe workshop uses a few R packages that need to be installed on your machine. The simplest way to do this is running the code below. This might take a few minutes if this is the first time you install these packages.\n\npkgs &lt;- c(\n  'r5r',\n  'accessibility',\n  'rJavaEnv',\n  'ggplot2',\n  'mapview',\n  'quantreg',\n  'dplyr',\n  'h3jsr',\n  'sf'\n  )\n\ninstall.packages(pkgs)\n\nThe safest way to replicate the code of this workshop, though, is cloning its repository locally. This is because this repository uses the {renv} R package to manage the package dependencies of the code we use. This is important to make sure we are using the same versions of the relevant packages.\nOnce you have cloned the repo and you’ve opened the access_workshop_toronto_2025.Rproj file, you can simply run renv::restore() to install all the package dependencies used in this workshop.\n\n# uncomment the line below in case you need to install the {renv} package\n# install.packages('renv')\nrenv::restore()",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Installation</span>"
+    ]
+  },
+  {
+    "objectID": "2.1_installation.html#installing-java",
+    "href": "2.1_installation.html#installing-java",
+    "title": "2  Installation",
+    "section": "2.3 Installing Java",
+    "text": "2.3 Installing Java\nTo use the {r5r} package (version v2.0 or higher), you will need to have Java Development Kit (JDK) 21 installed on your computer. There are numerous open-source JDK implementations. The easiest way to install JDK is using the new {rJavaEnv} package in R, developed by Egor Kotov (thanks Egor!).\n\n# check version of Java currently installed (if any) \nrJavaEnv::java_check_version_rjava()\n\n## if this is the first time you use {rJavaEnv}, you might need to run this code\n## below to consent the installation of Java.\n# rJavaEnv::rje_consent(provided = TRUE)\n\n# install Java 21\nrJavaEnv::java_quick_install(\n  version = 21,\n  distribution = 'Corretto')\n\n# check if Java was successfully installed\nrJavaEnv::java_check_version_rjava()\n\nAlternatively, you can manually download and install any of these JDK implementations:\n\nAdoptium/Eclipse Temurin\nAmazon Corretto\nOracle OpenJDK\n\nHere are a few accompanying slides explaining the computational requirements to conduct transport routing and accessibility analysis with R.",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Installation</span>"
+    ]
+  },
+  {
+    "objectID": "2.2_data_requirements.html",
+    "href": "2.2_data_requirements.html",
+    "title": "3  Data requirements",
+    "section": "",
+    "text": "3.1 Street network (mandatory)\nIn order to conduct transport routing and accessibility analysis using the {r5r} package, you will need a few input data sets:\nThe data sets we’ll use in this workshop are provided with the code exercises. If you would like to find similar data for Canada or other regions in the world, here are a few data sources. See also slides below.",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data requirements</span>"
+    ]
+  },
+  {
+    "objectID": "2.2_data_requirements.html#street-network-mandatory",
+    "href": "2.2_data_requirements.html#street-network-mandatory",
+    "title": "3  Data requirements",
+    "section": "",
+    "text": "{osmextract}, R package;\nGeofabrik, website;\nHOT Export Tool, website;\nBBBike Extract Service, website.",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data requirements</span>"
+    ]
+  },
+  {
+    "objectID": "2.2_data_requirements.html#public-transport-network-optional",
+    "href": "2.2_data_requirements.html#public-transport-network-optional",
+    "title": "3  Data requirements",
+    "section": "3.2 Public transport network (optional)",
+    "text": "3.2 Public transport network (optional)\n\n{tidytransit}, R package;\nTransitland, website;\nMobility Database website",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data requirements</span>"
+    ]
+  },
+  {
+    "objectID": "2.2_data_requirements.html#topography-optional",
+    "href": "2.2_data_requirements.html#topography-optional",
+    "title": "3  Data requirements",
+    "section": "3.3 Topography (optional)",
+    "text": "3.3 Topography (optional)\n\n{elevatr}, R package;\nNasa’s SRTMGL1, website.",
+    "crumbs": [
+      "Getting started",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Data requirements</span>"
+    ]
+  },
+  {
+    "objectID": "3.1_quick_approach.html",
+    "href": "3.1_quick_approach.html",
+    "title": "4  Quick approach",
+    "section": "",
+    "text": "4.1 Overview of our sample data\nIn this first hands-on section of the workshop, we’ll learn a very quick and simple way to calculate spatial accessibility using the {r5r} package. In the next section, we’ll see a more flexible and robust way to do the same thing. Here we’ll be calculating the number of schools accessible by public transport within a travel time of 20 minutes.\nFirst, let’s increase the memory available to run Java, which is used by the underlying R5 routing engine. To increase the available memory to 2 GB, for example, we use the following command. Note that this needs to be run before loading the packages that will be used in our analysis.\nNow we can load the packages we’ll use in this section:\nOur case study is the city of Porto Alegre, Brazil. The {r5r} package brings a small sample data for this city, including the following files:\nThese data sets should be saved in a single directory (our data_path). Here’s how the land use data looks like:\n# path to data directory\ndata_path &lt;- system.file(\"extdata/poa\", package = \"r5r\")\n\n# read points data\npoints &lt;- read.csv(file.path(data_path, \"poa_hexgrid.csv\"))\nhead(points)\n\n               id       lon       lat population schools jobs healthcare\n1 89a901291abffff -51.15825 -30.05385          0       0 1214          0\n2 89a9012a3cfffff -51.21187 -30.10058        159       0    0          0\n3 89a901295b7ffff -51.16521 -30.07544       1008       0    3          1\n4 89a901284a3ffff -51.20535 -30.09005         92       0    0          0\n5 89a9012809bffff -51.19575 -30.07839        577       0    9          0\n6 89a901285cfffff -51.21108 -30.08124       1170       0  427          0\n🔎 To visualize the spatial distribution of these data, we can retrieve the geometry of the H3 hexagonal grid and explore it using an interactive map:\n# retrieve polygons of H3 spatial grid\ngrid &lt;- h3jsr::cell_to_polygon(\n  points$id,\n  simple = FALSE\n  )\n\n# merge spatial grid with land use data\ngrid_poa &lt;- left_join(\n  grid,\n  points,\n  by = c('h3_address'='id')\n  )\n\n# interactive map\nmapview(grid_poa, zcol = 'population')",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quick approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.1_quick_approach.html#overview-of-our-sample-data",
+    "href": "3.1_quick_approach.html#overview-of-our-sample-data",
+    "title": "4  Quick approach",
+    "section": "",
+    "text": "An OpenStreetMap network: poa_osm.pbf\nTwo public transport GTFS feeds: poa_eptc.zip (buses) and poa_trensurb.zip (trains)\nA raster elevation data: poa_elevation.tif\nA data frame with land use data: poa_hexgrid.csv file with the centroids of a regular hexagonal grid covering the sample area. The data frame also indicates the number of residents and schools in each cell. We’ll use these points as origins and destinations in our analysis.",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quick approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.1_quick_approach.html#building-a-routable-transport-network",
+    "href": "3.1_quick_approach.html#building-a-routable-transport-network",
+    "title": "4  Quick approach",
+    "section": "4.2 Building a routable transport network",
+    "text": "4.2 Building a routable transport network\nThis quick approach to calculate accessibility involves only 2 steps. The first step is to build the multimodal transport network using the r5r::setup_r5() function.\n\nr5r_core &lt;- r5r::setup_r5(data_path, \n                          verbose = FALSE)\n\nAs you can see, we only need to pass the path to our data directory to the r5r::setup_r5() function. The function then combines the OSM, GTFS and elevation data in this directory to create a graph that is used for routing trips between origin-destination pairs and, consequently, for calculating travel time matrices and accessibility.",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quick approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.1_quick_approach.html#calculating-access-quick-approach",
+    "href": "3.1_quick_approach.html#calculating-access-quick-approach",
+    "title": "4  Quick approach",
+    "section": "4.3 Calculating access: quick approach",
+    "text": "4.3 Calculating access: quick approach\nIn the second step, you can calculate accessibility estimates in a single call using the r5r::accessibility() function. It includes different options of decay functions to compute cumulative accessibility measures and different gravity-based metrics.\nIn this example, we calculate the cumulative accessibility of the number of schools and hospitals accessible in less than 20 minutes by public transport. Thus, we’ll be using decay_function = \"step\".\nNote that to use r5r::accessibility(), the input of points must be a data.frame with columns indicating:\n\nthe id of each location\nspatial coordinates lat and lon\nthe number of activities in each location. The name of this column has to be passed to the opportunities_colnames parameter.\n\n\n# routing inputs\nmode &lt;- c(\"walk\", \"transit\")\n1max_walk_time &lt;- 20\ntravel_time_cutoff &lt;- 20\ndeparture_datetime &lt;- as.POSIXct(\"13-05-2019 14:00:00\",\n                                 format = \"%d-%m-%Y %H:%M:%S\")\n\n# calculate accessibility\naccess1 &lt;- r5r::accessibility(\n  r5r_core = r5r_core,\n  origins = points,\n  destinations = points,\n  mode = mode,\n2  opportunities_colnames = c(\"schools\", \"healthcare\"),\n  decay_function = \"step\",\n3  cutoffs = travel_time_cutoff,\n  departure_datetime = departure_datetime,\n  max_walk_time = max_walk_time,\n  progress = TRUE\n  )\n\n\n1\n\nIn minutes\n\n2\n\nNote you can pass the columns of more than one type of opportunity.\n\n3\n\nSimilarly, you could pass more than one time threshold.\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nNote that the r5r::accessibility() function has several additional parameters that allow you to specify different characteristics of trips, including a maximum trip duration, walking and cycling speed, level of traffic stress (LTS), etc. For more info, check the documentation of the function by calling ?r5r::accessibility in your R Console or check the documentation on {r5r} website.\n\n\nThe output is a data.frame that shows for every origin id the number of opportunities that can be reached:\n\nhead(access1)\n\n                id opportunity percentile cutoff accessibility\n            &lt;char&gt;      &lt;char&gt;      &lt;int&gt;  &lt;int&gt;         &lt;num&gt;\n1: 89a901291abffff     schools         50     20             3\n2: 89a901291abffff  healthcare         50     20             6\n3: 89a9012a3cfffff     schools         50     20             0\n4: 89a9012a3cfffff  healthcare         50     20             0\n5: 89a901295b7ffff     schools         50     20             6\n6: 89a901295b7ffff  healthcare         50     20             4",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quick approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.1_quick_approach.html#accessibility-map",
+    "href": "3.1_quick_approach.html#accessibility-map",
+    "title": "4  Quick approach",
+    "section": "4.4 Accessibility map",
+    "text": "4.4 Accessibility map\nNow it is super simple to merge these accessibility estimates to our spatial grid to visualize these results on a map.\n\n# merge spatial grid with accessibility estimates\naccess_sf &lt;- left_join(\n  grid, \n  access1, \n  by = c('h3_address'='id')\n  )\n\n# plot\nggplot() +\n  geom_sf(data = access_sf, aes(fill = accessibility), color= NA) +\n  scale_fill_viridis_c(direction = -1, option = 'B') +\n  labs(title = 'Number of schools and hospitals accessible by public transport in 20 minutes',\n       fill = 'Number of\\nfacilities') +\n  theme_minimal() +\n  theme(axis.title = element_blank()) +\n  facet_wrap(~opportunity) +\n  theme_void()",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Quick approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.2_flexible_approach.html",
+    "href": "3.2_flexible_approach.html",
+    "title": "5  Flexible approach",
+    "section": "",
+    "text": "5.1 Building a routable transport network\nIn the the previous section, we learned a ‘quick approach’ to calculate accessibility directly from within {r5r}. A shortcoming of this approach is that it is limited to only a few predefined accessibility metrics available in {r5r}. Oftentimes, we want to analyze other types of accessibility metrics and/or to have more control of the different steps of the analysis.\nIn this section, we’ll learn how to calculate travel time matrices and to use them to compute different types of accessibility metrics. This is a more ‘flexible’ approach that combines the capabilities of the {r5r} and the {accessibility} packages. We’ll use again the sample data for the city of Porto Alegre, Brazil, that comes with the {r5r} package.\nThis flexible approach to calculate accessibility only involves 3 steps:\nNow let’s start loading the packages we need:\nFirst, we build the multimodal transport network by passing the path of our data directory to the r5r::setup_r5() function.\n# path to data directory\ndata_path &lt;- system.file(\"extdata/poa\", package = \"r5r\")\n\n# build network\nr5r_core &lt;- r5r::setup_r5(data_path, \n                          verbose = FALSE)",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Flexible approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.2_flexible_approach.html#computing-a-travel-time-matrix",
+    "href": "3.2_flexible_approach.html#computing-a-travel-time-matrix",
+    "title": "5  Flexible approach",
+    "section": "5.2 Computing a travel time matrix",
+    "text": "5.2 Computing a travel time matrix\nThe second step is to calculate a travel time matrix with door-to-door travel time estimates from all origins to all destinations. To do this, we use the r5r::travel_time_matrix() function.\nAs basic inputs, this function receives the routable network created above, origin and destination points as data.frames with columns id, lon and lat, the transportation mode and the departure time.\n\n# read points data\npoints &lt;- read.csv(file.path(data_path, \"poa_hexgrid.csv\"))\n\n# routing inputs\nmode &lt;- c(\"walk\", \"transit\")\n1max_trip_duration &lt;- 30\ndeparture_datetime &lt;- as.POSIXct(\"13-05-2019 14:00:00\",\n                                 format = \"%d-%m-%Y %H:%M:%S\")\n\n# calculate travel time matrix\nttm &lt;- r5r::travel_time_matrix(\n  r5r_core = r5r_core,\n  origins = points,\n  destinations = points,\n  mode = mode,\n  departure_datetime = departure_datetime,\n  max_trip_duration = max_trip_duration,\n  progress = TRUE\n  )\n\n\n1\n\nIn minutes\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nNote that the r5r::travel_time_matrix() includes several additional parameters that allow you to specify some trip characteristics, such as maximum walking time, a departure time window, the maximum number of public transport legs allowed, etc. For more info, check the documentation of the function by calling ?r5r::travel_time_matrix in your R Console or check the documentation on {r5r} website.\n\n\nThe output is a data.frame, which looks like this. It is a matrix in long format with the columns from_id, to_id and a third column indicating the travel time (in minutes) for each origin-destination pair.\n\nhead(ttm)\n\n           from_id           to_id travel_time_p50\n            &lt;char&gt;          &lt;char&gt;           &lt;int&gt;\n1: 89a901291abffff 89a901291abffff               1\n2: 89a901291abffff 89a90129157ffff              25\n3: 89a901291abffff 89a9012956bffff              29\n4: 89a901291abffff 89a90128257ffff              29\n5: 89a901291abffff 89a90129ed3ffff              29\n6: 89a901291abffff 89a9012913bffff              19\n\n\n\n\n\n\n\n\nProcessing speed\n\n\n\nThe travel_time_matrix() function uses an extension of the RAPTOR routing algorithm (Conway, Byrd, and van der Linden 2017), making R5 extremely fast. Depending on the number of origin-destination pairs, {r5r} can calculate travel time matrices between 6 and 200 times faster than other multimodal routing engines (Higgins et al. 2022).",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Flexible approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.2_flexible_approach.html#calculating-accessibility",
+    "href": "3.2_flexible_approach.html#calculating-accessibility",
+    "title": "5  Flexible approach",
+    "section": "5.3 Calculating accessibility",
+    "text": "5.3 Calculating accessibility\n\nHaving computed a travel time matrix, we can combine it with land use data to calculate accessibility. For this, we will use the {accessibility} package, which provides some fast and convenient functions to calculate several accessibility measures.\nThe package currently includes more than 7 different types of accessibility measures (see details in the package documentation website).\n\ncost_to_closest(): Minimum travel cost to closest N number of opportunities\ncumulative_cutoff(): Cumulative access based on a travel cost cutoff\ncumulative_interval(): Cumulative access based on a travel time interval\ngravity(): Gravity-based accessibility measures\nfloating_catchment_area(): Floating catchment area accessibility\nspatial_availability(): Spatial availability\nbalancing_cost(): Balancing cost accessibility measure\n\nAs basic inputs, all functions of the package require a pre-calculated cost matrix (in our case, a travel time matrix) and some land use data with the number of opportunities (e.g. schools, jobs) in each cell of the study area. Both inputs must be organized in a data.frame format. We have just seen above the structure of the travel matrix. The land use data.frame must be organized like this:\n\n# land use data\n1head(points)\n\n\n1\n\nThe land use data must contain an id column, referring to the ids listed in the travel matrix, and the number of opportunities in each location.\n\n\n\n\n               id       lon       lat population schools jobs healthcare\n1 89a901291abffff -51.15825 -30.05385          0       0 1214          0\n2 89a9012a3cfffff -51.21187 -30.10058        159       0    0          0\n3 89a901295b7ffff -51.16521 -30.07544       1008       0    3          1\n4 89a901284a3ffff -51.20535 -30.09005         92       0    0          0\n5 89a9012809bffff -51.19575 -30.07839        577       0    9          0\n6 89a901285cfffff -51.21108 -30.08124       1170       0  427          0\n\n\nNow let’s calculate a few accessibility indicators.\n\n5.3.1 Cumulative accessibility measure\n\n5.3.1.1 Threshold-based cumulative accessibility\nTo calculate a traditional cumulative accessibility measure, we can use the accessibility::cumulative_cutoff() function. Along with the travel matrix and land use data sets, we only need to pass the name of the column with the travel time values, the name of the column with the count of opportunities, and a travel time cutoff.\nHere, we calculate the number of schools accessible in 20 minutes.\n\n# threshold-based cumulative accessibility\naccess_cum_t &lt;- accessibility::cumulative_cutoff(\n  travel_matrix = ttm, \n  land_use_data = points,\n  travel_cost = 'travel_time_p50',\n  opportunity = 'schools',\n  cutoff = 20\n  )\n  \nhead(access_cum_t)\n\n                id schools\n            &lt;char&gt;   &lt;int&gt;\n1: 89a9012124fffff       1\n2: 89a9012126bffff       3\n3: 89a9012127bffff       3\n4: 89a90128003ffff       8\n5: 89a90128007ffff       6\n6: 89a9012800bffff       9\n\n\n\n\n5.3.1.2 Interval-based cumulative accessibility\nPrevious studies have shown that the ad-hoc choice of a single travel time threshold can substantially influence the results of traditional cumulative accessibility measures, introducing bias into transport project evaluations and equity analyses (Pereira 2019). To overcome this issue, we have proposed a time interval cumulative accessibility measure (Tomasiello et al. 2023). This new metric estimates the average (or the median) number of opportunities that can be reached considering multiple minute-by-minute cutoffs within a given travel time interval.\nThe main advantage of this metric is that it mitigates the impacts of arbitrary choices of trip duration on accessibility analysis while preserving the computation and communicability advantages of threshold-based cumulative measures.\nHere, we calculate the average number of schools that can be reached between 20 and 30 minutes.\n\n# interval-based cumulative accessibility\naccess_cum_i &lt;- accessibility::cumulative_interval(\n  travel_matrix = ttm, \n  land_use_data = points,\n  travel_cost = 'travel_time_p50',\n  opportunity = 'schools',\n  interval = c(15,25),\n  summary_function = mean\n  )\n  \nhead(access_cum_i)\n\n                id schools\n            &lt;char&gt;   &lt;int&gt;\n1: 89a9012124fffff       1\n2: 89a9012126bffff       4\n3: 89a9012127bffff       4\n4: 89a90128003ffff       7\n5: 89a90128007ffff       7\n6: 89a9012800bffff       9\n\n\n\n\n\n\n5.3.2 Gravity-based accessibility measures\nThe package also includes accessibility::gravity() to calculate gravity-based accessibility metrics in a very flexible way.\nIt includes a decay_function parameter that can receive any function to convert travel cost into an impedance factor used to weight opportunities. For convenience, the package currently includes the following functions:\n\ndecay_binary()\ndecay_exponential()\ndecay_linear()\ndecay_logistic()\ndecay_power()\ndecay_stepped()\n\nLet’s see a couple examples with logistic and negative exponential decay functions:\n\n# logistic decay\naccess_lgst &lt;- gravity(\n  travel_matrix = ttm,\n  land_use_data = points,\n  decay_function = decay_logistic(cutoff = 15, sd = 5),\n  opportunity = \"schools\",\n  travel_cost = \"travel_time_p50\"\n)\n\n# negative exponential decay\naccess_nexp &lt;- gravity(\n  travel_matrix = ttm,\n  land_use_data = points,\n  decay_function = decay_exponential(decay_value = 0.1),\n  opportunity = \"schools\",\n  travel_cost = \"travel_time_p50\"\n)\n\nHere’s a quick visualization of the shape of the decay curves we’ve used.\n\n\nCode\nnegative_exp &lt;- decay_exponential(decay_value = 0.1)\nlogistic &lt;- decay_logistic(cutoff = 15, sd = 5)\n\ntravel_costs &lt;- seq(0, 30, 0.1)\n\nweights &lt;- data.frame(\n  minutes = travel_costs,\n  negative_exp = negative_exp(travel_costs)[[\"0.1\"]],\n  logistic = logistic(travel_costs)[[\"c15;sd5\"]]\n)\n\n# reshape data to long format\nweights &lt;- tidyr::pivot_longer(\n  weights,\n  cols = c('negative_exp',  'logistic'),\n  names_to = \"decay_function\",\n  values_to = \"weights\"\n)\n\nggplot(weights) +\n  geom_line(aes(minutes, weights, color = decay_function),\n            show.legend = FALSE) +\n  facet_wrap(. ~ decay_function, ncol = 2) +\n  theme_minimal()",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Flexible approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.2_flexible_approach.html#accessibility-map",
+    "href": "3.2_flexible_approach.html#accessibility-map",
+    "title": "5  Flexible approach",
+    "section": "5.4 Accessibility map",
+    "text": "5.4 Accessibility map\nNow it is super simple to merge all of these accessibility estimates to our spatial grid to visualize these results on a map.\n\n# rbind all accessibility results in a single data.frame\naccess_cum_t$metric &lt;- 'cum_threshold'\naccess_cum_i$metric &lt;- 'cum_interval'\naccess_lgst$metric &lt;- 'grav_logistic'\naccess_nexp$metric &lt;- 'grav_exponential'\n\ndf &lt;- rbind(access_cum_t,\n            access_cum_i,\n            access_lgst,\n            access_nexp\n            )\n\n# retrieve polygons of H3 spatial grid\ngrid &lt;- h3jsr::cell_to_polygon(\n  points$id, \n  simple = FALSE\n  )\n\n# merge accessibility estimates\naccess_sf &lt;- left_join(\n  grid, \n  df, \n  by = c('h3_address'='id')\n  )\n\nPlot map\n\nggplot() +\n  geom_sf(data = access_sf, aes(fill = schools), color= NA) +\n  scale_fill_viridis_c(direction = -1, option = 'B') +\n  labs(title = \"Access to schools by public transport using different accessibility metrics\", fill = \"Access\\nscore\") +\n  theme_minimal() +\n  theme(axis.title = element_blank()) +\n  facet_wrap(~metric) +\n  theme_void()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe {r5r} package has several advanced capabilities:\n\nAccounting for monetary costs\nAccounting for Level of Traffic Stress (LTS)\nUsing a departure window period instead of an exact departure time\nTrip planning with detailed ouputs\nCalculating isochrones\nGenerating larger-than-memory outputs\n\nSee the package vignettes on the website fore more info.\n\n\n\n\n\n\n\nConway, Matthew Wigginton, Andrew Byrd, and Marco van der Linden. 2017. “Evidence-Based Transit and Land Use Sketch Planning Using Interactive Accessibility Methods on Combined Schedule and Headway-Based Networks.” Transportation Research Record: Journal of the Transportation Research Board 2653 (1): 45–53. https://doi.org/10.3141/2653-06.\n\n\nHiggins, Christopher, Matthew Palm, Amber DeJohn, Luna Xi, James Vaughan, Steven Farber, Michael Widener, and Eric Miller. 2022. “Calculating Place-Based Transit Accessibility: Methods, Tools and Algorithmic Dependence.” Journal of Transport and Land Use 15 (1). https://doi.org/10.5198/jtlu.2022.2012.\n\n\nPereira, Rafael H. M. 2019. “Future Accessibility Impacts of Transport Policy Scenarios: Equity and Sensitivity to Travel Time Thresholds for Bus Rapid Transit Expansion in Rio de Janeiro.” Journal of Transport Geography 74: 321–32. https://doi.org/https://doi.org/10.1016/j.jtrangeo.2018.12.005.\n\n\nTomasiello, Diego Bogado, Daniel Herszenhut, João Lucas Albuquerque Oliveira, Carlos Kaue Vieira Braga, and Rafael H. M. Pereira. 2023. “A Time Interval Metric for Cumulative Opportunity Accessibility.” Applied Geography 157 (August): 103007. https://doi.org/10.1016/j.apgeog.2023.103007.",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Flexible approach</span>"
+    ]
+  },
+  {
+    "objectID": "3.3_equity_measures.html",
+    "href": "3.3_equity_measures.html",
+    "title": "6  Equity measures",
+    "section": "",
+    "text": "6.1 Inequality measures\nA central question in transportation research and practice involves assessing how the accessibility benefits of transportation systems and projects are distributed across different socioeconomic and demographic groups. Transportation equity concerns are fundamentally related to two types of issues: (1) accessibility inequality and (2) accessibility poverty. In this section you will learn how to use the {accessibility} package to calculate different indicators of accessibility inequality and poverty.\nIn a recent paper, we discussed the advantages and disadvantages of various inequality and poverty metrics most commonly used in the transport literature (Karner, Pereira, and Farber 2024) - ungated PDF here. The slides below give a very short summary of some ideas discussed in the paper. Just enough to follow this workshop section. Nonetheless, I would strongly recommend reading the whole paper.\nIn this section, we’ll be using a couple sample data sets for the city of Belo Horizonte (Brazil), which come with the {accessibility} package. In the code chunk below, we read the travel time matrix and land use data, and calculate the average number of jobs accessible in 30 by public transport.\n🔎 Time for a quick visual inspection! We can merge our accessibility results with the land use/population data, and visualize how employment accessibility is distributed across different income groups.\nThe box plot shows a very uneven distribution of access to job opportunities. Now let’s check what we can learn about accessibility inequality and poverty in this region with a few examples.",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Equity measures</span>"
+    ]
+  },
+  {
+    "objectID": "3.3_equity_measures.html#inequality-measures",
+    "href": "3.3_equity_measures.html#inequality-measures",
+    "title": "6  Equity measures",
+    "section": "",
+    "text": "6.1.1 Palma ratio\nThe Palma ratio is calculated as the average access of the richest 10% divided by the average access of the poorest 40%. Palma Ratio values higher than 1 indicate that the wealthiest population has higher accessibility levels than the poorest, whereas values lower than 1 indicate the opposite situation.\nIn the example here, we see that the wealthiest population can access on average 3.8 times more jobs than the poor population.\n\npalma &lt;- palma_ratio(\n  accessibility_data = access_df,\n  sociodemographic_data = lud,\n  opportunity = \"jobs\",\n  population = \"population\",\n  income = \"income_per_capita\"\n  )\n\npalma\n\n   palma_ratio\n         &lt;num&gt;\n1:    3.800465\n\n\n\n\n6.1.2 Concentration index\nThe concentration index (CI) estimates the extent to which accessibility inequalities are systematically associated with individuals’ socioeconomic levels. CI values can theoretically vary between -1 and 1 (when all accessibility is concentrated in the most or in the least disadvantaged person, respectively). Negative values indicate that inequalities favor the poor, while positive values indicate a pro-rich bias.\n\nci &lt;- accessibility::concentration_index(\n  accessibility_data = access_df,\n  sociodemographic_data = lud,\n  opportunity = \"jobs\",\n  population = \"population\",\n  income = \"income_per_capita\",\n  type = \"corrected\"\n  )\n\nci\n\n   concentration_index\n                 &lt;num&gt;\n1:           0.3346494\n\n\n\n\n6.1.3 Gini index\nYou probably shouldn’t use the Gini index to measure accessibility inequality (see Karner, Pereira, and Farber 2024).",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Equity measures</span>"
+    ]
+  },
+  {
+    "objectID": "3.3_equity_measures.html#poverty-measures",
+    "href": "3.3_equity_measures.html#poverty-measures",
+    "title": "6  Equity measures",
+    "section": "6.2 Poverty measures",
+    "text": "6.2 Poverty measures\n\n6.2.1 Foster-Greer-Thorbecke (FGT) poverty measures\nThe fgt_poverty() function calculates the FGT metrics, a family of poverty measures originally proposed by Foster, Greer, and Thorbecke (1984), and which that can be used to capture the extent and severity of poverty within an accessibility distribution. The FGT family is composed of three measures:\n\nFGT0: it captures the extent of poverty as a simple headcount - i.e. the proportion of people below the poverty line;\nFGT1: also know as the “poverty gap index”, it captures the severity of poverty as the average percentage distance between the poverty line and the accessibility of individuals below the poverty line;\nFGT2: it simultaneously captures the extent and the severity of poverty by calculating the number of people below the poverty line weighted by the size of the accessibility shortfall relative to the poverty line.\n\nThis function includes an additional poverty_line parameter, used to define the poverty line below which individuals are considered to be in accessibility poverty. For the sake of this exercise, we’ll consider the lowest 25th percentile of access as our poverty line, which in this example is approximately 23 thousand jobs.\n\n\n\n\n\n\nQuick reminder that the definition of an accessibility poverty line is ultimately a moral and political decision and not simply an empirical or technical question (Pereira, Schwanen, and Banister 2017; Lucas et al. 2019).\n\n\n\n\n# get the 25th percentile of access\nquant25 &lt;- quantile(access_df$jobs, .25)\n\npoverty &lt;- fgt_poverty(\n  accessibility_data =  access_df,\n  sociodemographic_data = lud,\n  opportunity = \"jobs\",\n  population = \"population\",\n  poverty_line = quant25\n  )\n\npoverty\n\n        FGT0       FGT1       FGT2\n       &lt;num&gt;      &lt;num&gt;      &lt;num&gt;\n1: 0.1478675 0.04948043 0.02862334\n\n\nQuick interpretation:\n\nFGT0: 14.8% of the population are in accessibility poverty\nFGT1: the accessibility of those living in accessibility poverty is on average 5% lower than the poverty line\nFGT2: it has no clear interpretation, but one could say that the overall poverty level/intensity is 2.8%.\n\n\n\n\n\nFoster, James, Joel Greer, and Erik Thorbecke. 1984. “A Class of Decomposable Poverty Measures.” Econometrica 52 (3): 761–66. https://doi.org/10.2307/1913475.\n\n\nKarner, Alex, Rafael H. M. Pereira, and Steven Farber. 2024. “Advances and Pitfalls in Measuring Transportation Equity.” Transportation, January. https://doi.org/10.1007/s11116-023-10460-7.\n\n\nLucas, Karen, Karel Martens, Floridea Di Ciommo, and Ariane Dupont-Kieffer. 2019. Measuring Transport Equity. Elsevier.\n\n\nPereira, Rafael H. M., Tim Schwanen, and David Banister. 2017. “Distributive Justice and Equity in Transportation.” Transport Reviews 37 (2): 170–91. https://doi.org/10.1080/01441647.2016.1257660.",
+    "crumbs": [
+      "Calculating accessibility",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>Equity measures</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Conway, Matthew Wigginton, Andrew Byrd, and Marco van der Linden. 2017.\n“Evidence-Based Transit and Land Use Sketch\nPlanning Using Interactive Accessibility Methods on\nCombined Schedule and Headway-Based\nNetworks.” Transportation Research Record: Journal of\nthe Transportation Research Board 2653 (1): 45–53. https://doi.org/10.3141/2653-06.\n\n\nFoster, James, Joel Greer, and Erik Thorbecke. 1984. “A\nClass of Decomposable Poverty\nMeasures.” Econometrica 52 (3): 761–66. https://doi.org/10.2307/1913475.\n\n\nHiggins, Christopher, Matthew Palm, Amber DeJohn, Luna Xi, James\nVaughan, Steven Farber, Michael Widener, and Eric Miller. 2022.\n“Calculating Place-Based Transit Accessibility:\nMethods, Tools and Algorithmic Dependence.”\nJournal of Transport and Land Use 15 (1). https://doi.org/10.5198/jtlu.2022.2012.\n\n\nKarner, Alex, Rafael H. M. Pereira, and Steven Farber. 2024.\n“Advances and Pitfalls in Measuring Transportation Equity.”\nTransportation, January. https://doi.org/10.1007/s11116-023-10460-7.\n\n\nLevinson, David, and David King. 2020. Transport Access Manual:\nA Guide for Measuring Connection Between People and\nPlaces. Committee of the Transport Access Manual, University\nof Sydney. https://ses.library.usyd.edu.au/handle/2123/23733.\n\n\nLucas, Karen, Karel Martens, Floridea Di Ciommo, and Ariane\nDupont-Kieffer. 2019. Measuring Transport Equity. Elsevier.\n\n\nPereira, Rafael H. M. 2019. “Future Accessibility Impacts of\nTransport Policy Scenarios: Equity and Sensitivity to Travel Time\nThresholds for Bus Rapid Transit Expansion in Rio de Janeiro.”\nJournal of Transport Geography 74: 321–32. https://doi.org/https://doi.org/10.1016/j.jtrangeo.2018.12.005.\n\n\nPereira, Rafael H. M., and Daniel Herszenhut. 2023. Introduction to\nUrban Accessibility: A Practical Guide with r. 1st ed. Instituto de\nPesquisa Econômica Aplicada (Ipea). https://doi.org/10.38116/9786556350653.\n\n\nPereira, Rafael H. M., Marcus Saraiva, Daniel Herszenhut, Carlos Kaue\nVieira Braga, and Matthew Wigginton Conway. 2021. “R5r:\nRapid Realistic Routing on Multimodal Transport\nNetworks with R5 in\nR.” Transport Findings, March, 21262. https://doi.org/10.32866/001c.21262.\n\n\nPereira, Rafael H. M., Tim Schwanen, and David Banister. 2017.\n“Distributive Justice and Equity in Transportation.”\nTransport Reviews 37 (2): 170–91. https://doi.org/10.1080/01441647.2016.1257660.\n\n\nTomasiello, Diego Bogado, Daniel Herszenhut, João Lucas Albuquerque\nOliveira, Carlos Kaue Vieira Braga, and Rafael H. M. Pereira. 2023.\n“A Time Interval Metric for Cumulative Opportunity\nAccessibility.” Applied Geography 157 (August): 103007.\nhttps://doi.org/10.1016/j.apgeog.2023.103007.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]

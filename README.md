@@ -1,1 +1,1 @@
-# access_workshop_toronto_2025
+Repository with the code to develop the website used as part of this [workshop](https://ipeagit.github.io/access_workshop_toronto_2025/).
